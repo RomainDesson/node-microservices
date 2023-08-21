@@ -1,0 +1,20 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "5672:5672"
+
+  admin:
+    build: ./admin
+    links:
+      - rabbitmq
+    ports:
+      - "8001:8001"
+
+  main:
+    build: ./main
+    links:
+      - rabbitmq
+    ports:
+      - "8002:8002"
