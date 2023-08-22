@@ -11,6 +11,17 @@ services:
       - rabbitmq
     ports:
       - "8001:8001"
+    depends_on:
+      - admindb
+
+  admindb:
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_DATABASE: node_admin
+    volumes:
+      - admindb_data:/var/lib/mysql
 
   main:
     build: ./main
@@ -18,3 +29,18 @@ services:
       - rabbitmq
     ports:
       - "8002:8002"
+    depends_on:
+      - maindb
+
+  maindb:
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_DATABASE: node_main
+    volumes:
+      - maindb_data:/var/lib/mysql
+
+volumes:
+  admindb_data:
+  maindb_data:
