@@ -17,9 +17,15 @@ services:
   admindb:
     image: mysql:5.7
     platform: linux/x86_64
+    expose:
+      - "3308"
+    ports:
+      - "3308:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootroot
       MYSQL_DATABASE: node_admin
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootroot
     volumes:
       - admindb_data:/var/lib/mysql
 
@@ -35,9 +41,15 @@ services:
   maindb:
     image: mysql:5.7
     platform: linux/x86_64
+    expose:
+      - "3307"
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootroot
       MYSQL_DATABASE: node_main
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootroot
     volumes:
       - maindb_data:/var/lib/mysql
 
